@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  spotify-api-server:
+    image: spotify-api-server
+    build:
+      dockerfile: Dockerfile.development
+      context: "./backend"
+    stdin_open: true
+    networks:
+      - spotify-app
+
+  spotify-frontend:
+    image: spotify-app
+    build:
+      dockerfile: Dockerfile.development
+      context: "./frontend"
+    networks:
+      - spotify-app
+
+networks:
+  spotify-app:
+    driver: bridge
+
+# version: "3.9"
+
+# services:
+#   backend:
+#     build:
+#       dockerfile: Dockerfile.development
+#       context: "./backend"
+#     volumes:
+#       - /app/node_modules
+#       - ./backend:/app
+
+#   frontend:
+#     build:
+#       dockerfile: Dockerfile.development
+#       context: ./frontend
+#     volumes:
+#       - /app/node_modules
+#       - ./frontend:/app
